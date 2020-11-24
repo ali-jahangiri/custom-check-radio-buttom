@@ -1,0 +1,133 @@
+//markup
+
+//dont forget name shuold be same 
+
+// <div class="radio">
+//       <div class="radio__box">
+//         <input type="radio" name="" id="" />
+//         <span></span>
+//         <label for=""></label>
+//       </div>
+//       <div class="radio__box">
+//         <input type="radio" name="" id="" />
+//         <span></span>
+//         <label for=""></label>
+//       </div>
+//     </div>
+
+//style
+
+.radio {
+    display: flex;
+
+    .radio__box {
+        display: flex;
+        align-items: center;
+
+        label {
+            padding: 0 20px;
+        }
+
+        input {
+            display: none;
+        }
+
+        span {
+            width: 2rem;
+            height: 2rem;
+            display: block;
+            border-radius: 50%;
+            border: 2px solid lightcoral;
+            position: relative;
+            z-index: -2;
+            margin-right: -20px;
+
+            &::after {
+                content: "";
+                display: block;
+                width: 0%;
+                height: 0%;
+                border-radius: 50%;
+                background-color: lightcoral;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transition: 0.2s;
+
+            }
+        }
+
+        input:checked+span::after {
+            width: 50%;
+            height: 50%;
+        }
+    }
+}
+
+
+
+// <div class="checkbox__container">
+//       <label for="small">small</label>
+//       <input type="checkbox" name="" id="" />
+//       <span></span>
+//     </div>
+
+
+@mixin checkmark($left, $top, $width, $height, $rotate) {
+    content: "";
+    display: block;
+    width: $width;
+    height: $height;
+    background-color: lightcoral;
+    border-radius: 5px;
+    top: $top;
+    left: $left;
+    transform: translate(-50%, -50%) rotate($rotate);
+    position: absolute;
+    transition: 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.checkbox__container {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+
+    label {
+        //for covering all space and trigger on clicking at span box
+        padding-right: 30px;
+    }
+
+    input {
+        display: none;
+    }
+
+    span {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 5px;
+        border: 2px solid lightcoral;
+        display: block;
+        position: relative;
+        margin: 0 -25px;
+        z-index: -2;
+
+        &::after {
+            @include checkmark(35.2%, 54%, 0px, 0.35rem, 45deg);
+
+        }
+
+        &::before {
+            @include checkmark(86%, 24%, 0px, 0.35rem, -50deg);
+        }
+    }
+
+    input:checked+span::after {
+        width: 0.8rem;
+    }
+
+    input:checked+span::before {
+        width: 2.2rem;
+        transition-delay: .3s;
+    }
+}
